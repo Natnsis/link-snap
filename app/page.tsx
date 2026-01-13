@@ -1,5 +1,13 @@
-import { ComponentExample } from "@/components/component-example";
+import LandingHeader from "@/components/LandingHeader"
+import LandingHero from "@/components/LandingHero"
 
-export default function Page() {
-return <ComponentExample />;
+const page = () => {
+  return (
+    <section className="p-5">
+      <LandingHeader />
+      <LandingHero />
+    </section>
+  )
 }
+
+export default page
