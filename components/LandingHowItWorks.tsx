@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 
 const LandingHowItWorks = () => {
   return (
-    <div className="flex justify-center h-screen">
-      <div className="h-[343px] w-[1000px] flex flex-col justify-evenly">
+    <div className="flex justify-center mb-5">
+      <div className="w-[1000px] flex flex-col justify-evenly">
         <img src="/inner/link.png" className="w-30" />
         <div className="pl-4 mb-5">
           <h1 className="text-2xl font-extrabold">LinkSnap</h1>
