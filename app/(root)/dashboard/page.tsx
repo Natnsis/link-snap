@@ -1,6 +1,9 @@
 import Header from "@/components/Header"
 import Counts from "@/components/Counts"
 import Options from "@/components/Options"
+import Demo from "@/components/Demo"
+import Demo2 from "@/components/Demo2"
+import CollectionOverview from "@/components/CollectionOverview"
 
 const page = () => {
   return (
@@ -8,6 +11,9 @@ const page = () => {
       <Header />
       <Counts />
       <Options />
+      <Demo />
+      <Demo2 />
+      <CollectionOverview />
     </section>
   )
 }

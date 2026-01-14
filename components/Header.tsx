@@ -1,4 +1,4 @@
-
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
 const Header = () => {
@@ -10,6 +10,13 @@ const Header = () => {
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline">Dashboard</Button>
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline">Collections</Button>
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline">All Links</Button>
+          <Avatar className="rounded-lg">
+            <AvatarImage
+              src="https://github.com/evilrabbit.png"
+              alt="@evilrabbit"
+            />
+            <AvatarFallback>ER</AvatarFallback>
+          </Avatar>
         </nav>
       </div>
     </header>
