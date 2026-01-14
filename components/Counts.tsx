@@ -1,10 +1,10 @@
 const Counts = () => {
   return (
     <main className="flex justify-center mt-20">
-      <div className="w-6/9 flex justify-between">
+      <div className="sm:w-6/9 sm:flex sm:justify-between grid grid-rows-3 gap-5">
         <div>
           <h1 className="text-6xl font-extrabold text-center">1289</h1>
-          <p className="text-center text-gray-500">Totoal links</p>
+          <p className="text-center text-gray-500">Total links</p>
         </div>
 
         <div>

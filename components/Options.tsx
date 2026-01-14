@@ -5,7 +5,7 @@ import { FaXTwitter } from "react-icons/fa6"
 const Options = () => {
   return (
     <main className="flex justify-center mt-25">
-      <div className="w-6/9 grid grid-cols-4 gap-5 gap-y-20">
+      <div className="w-6/9 grid sm:grid-cols-4 gap-5 gap-y-20 grid-cols-3">
         <div className="flex flex-col gap-1 items-center">
           <FaYoutube size={40} color="gray" />
           <p className="font-extrabold">YouTube</p>

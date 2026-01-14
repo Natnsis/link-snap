@@ -2,6 +2,13 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { MenuIcon } from "lucide-react"
 
 const Header = () => {
   const router = useRouter();
@@ -9,7 +16,9 @@ const Header = () => {
     <header className="flex justify-center">
       <div className="flex justify-between w-[80%]">
         <h1 className="text-xl font-extrabold">LinkSnap</h1>
-        <nav className="flex gap-5">
+
+        {/*desktop navigation*/}
+        <nav className="gap-5 sm:flex hidden">
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/dashboard")}>
             Dashboard
           </Button>
@@ -30,6 +39,26 @@ const Header = () => {
             <AvatarFallback>ER</AvatarFallback>
           </Avatar>
         </nav>
+
+        {/*no desktop navigation*/}
+        <div className="sm:hidden flex gap-5">
+          <DropdownMenu>
+            <DropdownMenuTrigger><MenuIcon /></DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/collections")}>Collections</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/links")}>All Links</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Avatar className="rounded-lg">
+            <AvatarImage
+              src="https://github.com/evilrabbit.png"
+              alt="@evilrabbit"
+            />
+            <AvatarFallback>ER</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </header>
   )

@@ -15,8 +15,8 @@ const page = () => {
         <Separator className="my-5" />
         <p className="text-sm mb-5">Filter by:</p>
 
-        <div className="flex gap-5 justify-between">
-          <div className="flex gap-5">
+        <div className="sm:flex gap-5 sm:justify-between grid grid-rows-2">
+          <div className="sm:flex gap-5 grid grid-cols-3">
             <Select>
               <SelectTrigger className="rounded-full bg-white">
                 <SelectValue placeholder="Platform" />
@@ -88,7 +88,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 mt-5 gap-5 px-10">
+      <div className="grid sm:grid-cols-4 grid-cols-1 mt-5 gap-5 px-10">
         {linkCards ? linkCards.map((l, index) => (
           <div className="h-[90vh]" key={index}>
             <div className="bg-gray-200 h-[60vh] rounded-t-lg flex items-center justify-center">
