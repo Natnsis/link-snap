@@ -4,6 +4,7 @@ import Options from "@/components/Options"
 import Demo from "@/components/Demo"
 import Demo2 from "@/components/Demo2"
 import CollectionOverview from "@/components/CollectionOverview"
+import Footer from "@/components/Footer"
 
 const page = () => {
   return (
@@ -14,6 +15,7 @@ const page = () => {
       <Demo />
       <Demo2 />
       <CollectionOverview />
+      <Footer />
     </section>
   )
 }
