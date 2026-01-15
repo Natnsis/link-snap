@@ -20,7 +20,7 @@ const page = () => {
             <Button size="sm"><PlusIcon /> Add Collections</Button>
           </div>
           <Separator />
-          <div className="grid grid-cols-3 mt-5 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-5">
             {collections.map((c, index) => (
               <div className="h-[30vh] border rounded-lg p-5" key={index}>
                 <h1 className="font-bold text-lg">{c.title}</h1>
