@@ -1,0 +1,104 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { ArrowLeftIcon } from "lucide-react"
+import { useParams, useRouter } from "next/navigation"
+import {
+  FaYoutube,
+  FaTiktok,
+  FaInstagram,
+  FaTwitter,
+  FaGlobe,
+  FaFolder,
+  FaTag,
+  FaStar,
+} from "react-icons/fa"
+import type { ElementType } from "react"
+import { linkCards } from "@/lib/constants/links"
+
+type PlatformMeta = {
+  title: string
+  icon: ElementType
+  color?: string
+}
+
+const PLATFORM_META: Record<string, PlatformMeta> = {
+  yt: {
+    title: "YouTube",
+    icon: FaYoutube,
+  },
+  tk: {
+    title: "TikTok",
+    icon: FaTiktok,
+  },
+  is: {
+    title: "Instagram",
+    icon: FaInstagram,
+  },
+  tw: {
+    title: "Twitter",
+    icon: FaTwitter,
+  },
+  web: {
+    title: "Website",
+    icon: FaGlobe,
+  },
+  coll: {
+    title: "Collection",
+    icon: FaFolder,
+  },
+  tag: {
+    title: "Tag",
+    icon: FaTag,
+  },
+  fav: {
+    title: "Favorites",
+    icon: FaStar,
+  },
+}
+
+const Page = () => {
+  const { id } = useParams<{ id: string }>()
+  const router = useRouter()
+
+  const meta = PLATFORM_META[id] ?? {
+    title: "Unknown",
+    icon: FaGlobe,
+  }
+
+  const Icon = meta.icon
+
+  return (
+    <section className="p-5">
+      <Button
+        size="icon"
+        variant="outline"
+        onClick={() => router.back()}
+        aria-label="Go back"
+      >
+        <ArrowLeftIcon />
+      </Button>
+
+      <div className="mt-12 flex flex-col items-center gap-3">
+        <Icon size={64} color="gray" />
+        <h1 className="text-xl font-bold">{meta.title} Links</h1>
+      </div>
+
+      <div className="mt-10 flex justify-center">
+        <div className="w-11/12 grid grid-cols-4 gap-5">
+          {linkCards.map((l, index) => (
+            <div className="rounded-lg border" key={index}>
+              <div className="h-[35vh]"></div>
+              <div className="px-5">
+                <h1 className="text-lg font-bold">{l.title}</h1>
+                <p className="text-sm text-gray-600">{l.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Page
