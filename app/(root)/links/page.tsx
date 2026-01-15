@@ -88,7 +88,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-4 grid-cols-1 mt-5 gap-5 px-10">
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 mt-5 gap-5 px-10">
         {linkCards ? linkCards.map((l, index) => (
           <div className="h-[90vh]" key={index}>
             <div className="bg-gray-200 h-[60vh] rounded-t-lg flex items-center justify-center">
