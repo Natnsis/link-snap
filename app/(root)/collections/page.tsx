@@ -1,13 +1,15 @@
+"use client"
 import Header from "@/components/Header"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { PlusIcon } from 'lucide-react'
 import { Link } from 'lucide-react'
 import { collections } from "@/lib/constants/collections"
+import { useRouter } from "next/navigation"
 
 const page = () => {
+  const router = useRouter()
   return (
     <section className="p-5">
       <Header />
@@ -17,18 +19,17 @@ const page = () => {
           <p className="font-bold text-gray-500 text-xl">Organize your saved links into collections</p>
           <div className="flex mt-3 justify-between items-center gap-5 mb-5">
             <Input className="w-1/2 h-8" placeholder="search for collections..." />
-            <Button size="sm"><PlusIcon /> Add Collections</Button>
+            <Button size="sm" onClick={() => router.push("/add-collection")} ><PlusIcon /> Add Collections</Button>
           </div>
-          <Separator />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-5">
             {collections.map((c, index) => (
-              <div className="h-[30vh] border rounded-lg p-5" key={index}>
+              <div className="h-[30vh] border rounded-lg p-5 hover:shadow-lg" key={index}>
                 <h1 className="font-bold text-lg">{c.title}</h1>
                 <p className="text-sm text-gray-600 mb-2">{c.description}</p>
                 <div className="flex gap-3 mt-5">
-                  <Badge>{c.tags[0]}</Badge>
-                  <Badge>{c.tags[1]}</Badge>
-                  <Badge>{c.tags[2]}</Badge>
+                  <Badge variant="outline">{c.tags[0]}</Badge>
+                  <Badge variant="outline">{c.tags[1]}</Badge>
+                  <Badge variant="outline">{c.tags[2]}</Badge>
                 </div>
                 <div className="flex gap-2 mt-5">
                   <Link size={20} />
