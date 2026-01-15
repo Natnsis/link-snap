@@ -2,9 +2,9 @@ import Header from "@/components/Header"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectGroup, SelectContent, SelectLabel, SelectItem, SelectValue } from "@/components/ui/select"
-import { Download, Edit, Link, PlayIcon, Save } from "lucide-react"
+import { Download, Edit, Link, PlayIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { linkCards } from "@/lib/constants/collections"
+import { linkCards } from "@/lib/constants/links"
 const page = () => {
   return (
     <section className="p-5">
