@@ -42,7 +42,12 @@ const page = () => {
           <div className="w-60 flex flex-col gap-3">
             <Input className="bg-gray-100" placeholder="example@gmail.com" {...register("email")} />
             <p className="text-center text-red-700 text-sm">{errors.email?.message}</p>
-            <Input className="bg-gray-100" placeholder="*******" {...register("password")} />
+            <Input
+              className="bg-gray-100"
+              type="password"
+              placeholder="*******"
+              {...register("password")}
+            />
             <p className="text-center text-red-700 text-sm">{errors.password?.message}</p>
             <Button className="w-full" size="sm" disabled={isSubmitting} type="submit">Login</Button>
             <p className="text-center">or</p>

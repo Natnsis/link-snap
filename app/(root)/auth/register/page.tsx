@@ -23,7 +23,7 @@ const page = () => {
   const onSubmit = async (data: AuthType) => {
     try {
       const response = await registerWithPassword(data)
-      toast("user registered successfully");
+      toast("email verfication sent successfully!");
       console.log(response);
       router.push("/auth/login")
     } catch (e) {
@@ -42,7 +42,12 @@ const page = () => {
           <div className="w-60 flex flex-col gap-3">
             <Input className="bg-gray-100" placeholder="example@gmail.com" {...register("email")} />
             <p className="text-sm text-center text-red-700">{errors.email?.message}</p>
-            <Input className="bg-gray-100" placeholder="*******" />
+            <Input
+              className="bg-gray-100"
+              type="password"
+              placeholder="*******"
+              {...register("password")}
+            />
             <p className="text-sm text-center text-red-700">{errors.password?.message}</p>
             <Button className="w-full" size="sm" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "registering..." : "Register"}
