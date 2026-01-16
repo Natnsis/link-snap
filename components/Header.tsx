@@ -11,9 +11,27 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import { MenuIcon } from "lucide-react"
+import { createClient } from "@/utils/supabase/client"
+import { useEffect, useState } from "react"
 
 const Header = () => {
   const router = useRouter();
+  const supabase = createClient()
+
+  //TODO: assign full name with oauth
+  const [user, setUser] = useState<any | null>(null)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setUser(user)
+    };
+
+    fetchUser();
+  }, []);
   return (
     <header className="flex justify-center">
       <div className="flex justify-between w-[80%]">
@@ -46,9 +64,9 @@ const Header = () => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Natnael Sisay</DropdownMenuLabel>
+              <DropdownMenuLabel>{user ? user?.full_name : "guest"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>nsisay49@gmail.com</DropdownMenuItem>
+              <DropdownMenuItem>{user ? user?.email : "unauthorized"}</DropdownMenuItem>
               <DropdownMenuItem onClick={() => router.push("/auth/login")}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
