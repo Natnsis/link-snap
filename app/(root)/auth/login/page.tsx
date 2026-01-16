@@ -49,7 +49,9 @@ const page = () => {
               {...register("password")}
             />
             <p className="text-center text-red-700 text-sm">{errors.password?.message}</p>
-            <Button className="w-full" size="sm" disabled={isSubmitting} type="submit">Login</Button>
+            <Button className="w-full" size="sm" disabled={isSubmitting} type="submit">
+              {isSubmitting ? "loading..." : "Login"}
+            </Button>
             <p className="text-center">or</p>
             <Button variant="outline"><FcGoogle size={20} />Continue with google</Button>
             <p className="text-sm text-center">

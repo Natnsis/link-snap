@@ -44,3 +44,12 @@ export const signUpWithGoogle = async () => {
   }
 }
 
+export const logout = async () => {
+  try {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
+  } catch (error) {
+    if (error) throw error
+  }
+}

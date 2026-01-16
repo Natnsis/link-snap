@@ -55,18 +55,15 @@ const page = () => {
 
             <Select>
               <SelectTrigger className="rounded-full bg-white">
-                <SelectValue placeholder="Content type" />
+                <SelectValue placeholder="Length" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Contents</SelectLabel>
-                  <SelectItem value="apple">Video</SelectItem>
-                  <SelectItem value="banana">Article</SelectItem>
-                  <SelectItem value="blueberry">Tutorial</SelectItem>
-                  <SelectItem value="grapes">Course</SelectItem>
-                  <SelectItem value="pineapple">Tool / Website</SelectItem>
-                  <SelectItem value="pineapple">Repo / Code</SelectItem>
-                  <SelectItem value="pineapple">Thread</SelectItem>
+                  <SelectLabel>Length</SelectLabel>
+                  <SelectItem value="short">Short (≤ 1 min)</SelectItem>
+                  <SelectItem value="medium">Medium (1–10 min)</SelectItem>
+                  <SelectItem value="long">Long (10+ min)</SelectItem>
+                  <SelectItem value="playlist">Playlist / Series</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

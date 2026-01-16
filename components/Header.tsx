@@ -13,6 +13,7 @@ import {
 import { MenuIcon } from "lucide-react"
 import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
+import { logout } from "@/app/api/auth/route"
 
 const Header = () => {
   const router = useRouter();
@@ -32,6 +33,12 @@ const Header = () => {
 
     fetchUser();
   }, []);
+
+  const signOut = async () => {
+    await logout()
+    router.push("/auth/login")
+  }
+
   return (
     <header className="flex justify-center">
       <div className="flex justify-between w-[80%]">
@@ -67,7 +74,7 @@ const Header = () => {
               <DropdownMenuLabel>{user ? user?.full_name : "guest"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>{user ? user?.email : "unauthorized"}</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/auth/login")}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
@@ -97,7 +104,7 @@ const Header = () => {
               <DropdownMenuLabel>Natnael Sisay</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>nsisay49@gmail.com</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/auth/login")}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
