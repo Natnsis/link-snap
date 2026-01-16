@@ -7,6 +7,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import { MenuIcon } from "lucide-react"
 
@@ -30,14 +32,23 @@ const Header = () => {
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/links")}>
             All Links
           </Button>
-
-          <Avatar className="rounded-lg">
-            <AvatarImage
-              src="https://github.com/evilrabbit.png"
-              alt="@evilrabbit"
-            />
-            <AvatarFallback>ER</AvatarFallback>
-          </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar className="rounded-lg">
+                <AvatarImage
+                  src="https://github.com/evilrabbit.png"
+                  alt="@evilrabbit"
+                />
+                <AvatarFallback>ER</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Natnael Sisay</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>nsisay49@gmail.com</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/auth/login")}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         {/*no desktop navigation*/}
@@ -51,13 +62,23 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Avatar className="rounded-lg">
-            <AvatarImage
-              src="https://github.com/evilrabbit.png"
-              alt="@evilrabbit"
-            />
-            <AvatarFallback>ER</AvatarFallback>
-          </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar className="rounded-lg">
+                <AvatarImage
+                  src="https://github.com/evilrabbit.png"
+                  alt="@evilrabbit"
+                />
+                <AvatarFallback>ER</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Natnael Sisay</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>nsisay49@gmail.com</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/auth/login")}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
