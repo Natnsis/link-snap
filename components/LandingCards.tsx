@@ -1,7 +1,7 @@
 
 const LandingCards = () => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" id="features">
       <div className="sm:grid sm:grid-cols-3 sm:gap-10 w-[1000px] grid gird-rows-3 gap-5">
         <div className="h-[60vh] bg-gray-100 rounded-lg">
           <div className="h-6/7">

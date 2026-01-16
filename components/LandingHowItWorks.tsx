@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const LandingHowItWorks = () => {
   return (
-    <div className="flex justify-center mb-5">
+    <div className="flex justify-center mb-5" id="how-it-works">
       <div className="w-[1000px] flex flex-col justify-evenly">
         <img src="/inner/logo.png" className="w-30" />
         <div className="pl-4 mb-5">

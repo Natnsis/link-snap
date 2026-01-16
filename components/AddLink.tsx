@@ -57,7 +57,7 @@ export function AddLink() {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Save link</Button>
           </DialogFooter>
         </DialogContent>
       </form>
