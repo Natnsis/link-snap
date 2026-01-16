@@ -8,7 +8,7 @@ const page = () => {
     <section className="h-screen flex justify-center items-center">
       <div className="flex flex-col">
         <div className="flex justify-center">
-          <img src="/inner/link.png" className="w-30" />
+          <img src="/inner/logo.png" className="w-30" />
         </div>
         <h1 className="text-4xl font-extrabold text-center mb-5">Welcome to the platform</h1>
         <div className="flex justify-center">

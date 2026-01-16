@@ -4,7 +4,7 @@ const LandingHowItWorks = () => {
   return (
     <div className="flex justify-center mb-5">
       <div className="w-[1000px] flex flex-col justify-evenly">
-        <img src="/inner/link.png" className="w-30" />
+        <img src="/inner/logo.png" className="w-30" />
         <div className="pl-4 mb-5">
           <h1 className="text-2xl font-extrabold">LinkSnap</h1>
           <p className="text-2xl font-bold text-gray-500">Profile</p>

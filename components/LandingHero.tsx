@@ -4,7 +4,7 @@ const LandingHero = () => {
   return (
     <div className="flex-col flex h-screen">
       <div className="flex justify-center mt-20">
-        <img src="/inner/link.png" alt="Image" className="rounded-md object-cover h-30" />
+        <img src="/inner/logo.png" alt="Image" className="rounded-md object-cover h-30" />
       </div>
       <div className="flex flex-col gap-2 mb-10">
         <h1 className="text-6xl font-extrabold text-center">LinkSnap</h1>
