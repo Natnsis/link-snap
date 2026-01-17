@@ -12,8 +12,22 @@ import {
 import { Input } from "@/components/ui/input"
 import { Link2 } from "lucide-react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { LinkForm } from "@/app/schemas/link.schema"
+import { Controller } from "react-hook-form"
 
 export function AddLink() {
+  const { register, handleSubmit, control, formState: { errors } } = useForm({
+    resolver: zodResolver(LinkForm),
+    defaultValues: {
+      url: "",
+      title: "",
+      priority: "",
+      purpose: ""
+    }
+  })
+
   return (
     <Dialog>
       <form>
@@ -31,44 +45,73 @@ export function AddLink() {
             </DialogDescription>
           </DialogHeader>
           <div className="px-5 flex flex-col gap-3">
-            <Input placeholder="https://example.com" />
+            <Input placeholder="https://example.com" {...register("url")} />
+            <p>"hehe"</p>
             <div>
               <p>A short name to recognize this link</p>
-              <Input placeholder="Name it in a way that makes sense to you" />
+              <Input placeholder="Name it in a way that makes sense to you"  {...register("title")} />
+              {errors.title && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.title.message}
+                </p>
+              )}
             </div>
             <div className="flex gap-10">
-              <Select>
-                <SelectTrigger className="rounded-full bg-white">
-                  <SelectValue placeholder="Priority" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Priorities</SelectLabel>
-                    <SelectItem value="apple">High Priority</SelectItem>
-                    <SelectItem value="banana">Medium Priority</SelectItem>
-                    <SelectItem value="blueberry">Low Priority</SelectItem>
-                    <SelectItem value="grapes">Someday</SelectItem>
-                    <SelectItem value="pineapple">Saved In Panic</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
 
-              <Select>
-                <SelectTrigger className="rounded-full bg-white">
-                  <SelectValue placeholder="Purpose" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Purposes</SelectLabel>
-                    <SelectItem value="apple">Learning</SelectItem>
-                    <SelectItem value="banana">Working / Project</SelectItem>
-                    <SelectItem value="blueberry">Inspiration</SelectItem>
-                    <SelectItem value="grapes">News</SelectItem>
-                    <SelectItem value="pineapple">Research</SelectItem>
-                    <SelectItem value="pineapple">I'll check later</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <Controller
+                name="priority"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Priority" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Priorities</SelectLabel>
+                        <SelectItem value="learning">Learning</SelectItem>
+                        <SelectItem value="work">Working</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {errors.priority && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.priority.message}
+                </p>
+              )}
+
+              <Controller
+                name="purpose"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Purpose" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Priorities</SelectLabel>
+                        <SelectItem value="learning">Learning</SelectItem>
+                        <SelectItem value="work">Working</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {errors.purpose && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.purpose.message}
+                </p>
+              )}
+
             </div>
           </div>
           <DialogFooter>
@@ -79,6 +122,6 @@ export function AddLink() {
           </DialogFooter>
         </DialogContent>
       </form>
-    </Dialog>
+    </Dialog >
   )
 }
