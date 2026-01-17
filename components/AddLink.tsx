@@ -36,22 +36,40 @@ export function AddLink() {
               <p>A short name to recognize this link</p>
               <Input placeholder="Name it in a way that makes sense to you" />
             </div>
-            <Select>
-              <SelectTrigger className="rounded-full bg-white">
-                <SelectValue placeholder="Purpose" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Purposes</SelectLabel>
-                  <SelectItem value="apple">Learning</SelectItem>
-                  <SelectItem value="banana">Working / Project</SelectItem>
-                  <SelectItem value="blueberry">Inspiration</SelectItem>
-                  <SelectItem value="grapes">News</SelectItem>
-                  <SelectItem value="pineapple">Research</SelectItem>
-                  <SelectItem value="pineapple">I'll check later</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <div className="flex gap-10">
+              <Select>
+                <SelectTrigger className="rounded-full bg-white">
+                  <SelectValue placeholder="Priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Priorities</SelectLabel>
+                    <SelectItem value="apple">High Priority</SelectItem>
+                    <SelectItem value="banana">Medium Priority</SelectItem>
+                    <SelectItem value="blueberry">Low Priority</SelectItem>
+                    <SelectItem value="grapes">Someday</SelectItem>
+                    <SelectItem value="pineapple">Saved In Panic</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+
+              <Select>
+                <SelectTrigger className="rounded-full bg-white">
+                  <SelectValue placeholder="Purpose" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Purposes</SelectLabel>
+                    <SelectItem value="apple">Learning</SelectItem>
+                    <SelectItem value="banana">Working / Project</SelectItem>
+                    <SelectItem value="blueberry">Inspiration</SelectItem>
+                    <SelectItem value="grapes">News</SelectItem>
+                    <SelectItem value="pineapple">Research</SelectItem>
+                    <SelectItem value="pineapple">I'll check later</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>
