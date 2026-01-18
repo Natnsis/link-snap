@@ -14,9 +14,31 @@ import { Link2 } from "lucide-react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { LinkForm } from "@/app/schemas/link.schema"
+import { LinkForm, LinkType } from "@/app/schemas/link.schema"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { addLink } from "@/app/api/link/route"
+import { createClient } from "@/utils/supabase/client"
+import { useEffect, useState } from "react"
 
 export function AddLink() {
+  const supabase = createClient()
+
+  const [user, setUser] = useState<any | null>(null)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setUser(user)
+    };
+
+    fetchUser();
+  }, []);
+
+  const user_id = user.id;
+
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(LinkForm),
     defaultValues: {
@@ -27,10 +49,20 @@ export function AddLink() {
     },
   })
 
-  const onSubmit = (data: any) => {
-    console.log("Form submitted:", data)
-  }
+  const queryClient = useQueryClient()
 
+  const mutation = useMutation<
+    any,
+    Error,
+    LinkType & { user_id: string }
+  >({
+    mutationFn: addLink,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["link"] })
+  })
+
+  const onSubmit = (data: LinkType) => {
+    mutation.mutate({ ...data, user_id })
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
