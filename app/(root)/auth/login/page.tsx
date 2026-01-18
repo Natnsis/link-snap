@@ -9,9 +9,11 @@ import { AuthSchema, AuthType } from "@/app/schemas/auth.schema";
 import { loginWithPassword } from "@/app/api/auth/route";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const page = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<AuthType>({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
@@ -28,6 +30,19 @@ const page = () => {
       router.push("/dashboard")
     } catch (e: any) {
       toast(e.message);
+    }
+  }
+
+  //FIXME:oauth authentication
+  const loginWithGoogle = async () => {
+    try {
+      setIsLoading(true)
+      await loginWithGoogle()
+      router.push("/dashboard")
+      setIsLoading(false)
+      toast("welcome back! ✨");
+    } catch (e) {
+      setIsLoading(false)
     }
   }
 
@@ -53,7 +68,7 @@ const page = () => {
               {isSubmitting ? "loading..." : "Login"}
             </Button>
             <p className="text-center">or</p>
-            <Button variant="outline"><FcGoogle size={20} />Continue with google</Button>
+            <Button variant="outline" onClick={loginWithGoogle} disabled={isLoading}><FcGoogle size={20} />Continue with google</Button>
             <p className="text-sm text-center">
               Don't have an account? register <Link href="/auth/register" className="font-bold hover:underline">here</Link>
             </p>

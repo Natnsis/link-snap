@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema, AuthType } from "@/app/schemas/auth.schema";
-import { registerWithPassword } from "@/app/api/auth/route";
+import { loginWithGoogle, registerWithPassword } from "@/app/api/auth/route";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
 
@@ -53,7 +53,7 @@ const page = () => {
               {isSubmitting ? "registering..." : "Register"}
             </Button>
             <p className="text-center">or</p>
-            <Button variant="outline"><FcGoogle size={20} />Continue with google</Button>
+            <Button variant="outline" onClick={() => loginWithGoogle}><FcGoogle size={20} />Continue with google</Button>
             <p className="text-sm text-center">
               Aleady have an accoutn? login <Link href="/auth/login" className="font-bold hover:underline">here</Link>
             </p>

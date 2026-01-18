@@ -53,3 +53,15 @@ export const logout = async () => {
     if (error) throw error
   }
 }
+
+export const loginWithGoogle = async () => {
+  try {
+    const supabase = createClient()
+    const { error: oAuthError } = await supabase.auth.signInWithOAuth({
+      provider: "google"
+    })
+    if (oAuthError) throw oAuthError
+  } catch (error) {
+    if (error) throw error
+  }
+}
