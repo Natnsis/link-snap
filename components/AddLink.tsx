@@ -19,11 +19,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addLink } from "@/app/api/link/route"
 import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
+import { Spinner } from "./ui/spinner"
 
 export function AddLink() {
   const supabase = createClient()
+  const [user, setUser] = useState<any | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [user, setUser] = useState<any | null>(null)
   useEffect(() => {
     const fetchUser = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
@@ -33,19 +36,17 @@ export function AddLink() {
       }
       setUser(user)
     };
-
     fetchUser();
   }, []);
 
-  const user_id = user.id;
 
-  const { register, handleSubmit, control, formState: { errors } } = useForm({
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: zodResolver(LinkForm),
     defaultValues: {
       url: "",
       title: "",
-      priority: "medium",
-      purpose: "learning",
+      priority: "",
+      purpose: "",
     },
   })
 
@@ -57,12 +58,22 @@ export function AddLink() {
     LinkType & { user_id: string }
   >({
     mutationFn: addLink,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["link"] })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["link"] });
+      toast.success("link added succesfully✨")
+      reset();
+    },
+    onError: (error: any) => {
+      toast.error("Error: " + error.message)
+    }
   })
 
   const onSubmit = (data: LinkType) => {
-    mutation.mutate({ ...data, user_id })
+    setIsLoading(true)
+    mutation.mutate({ ...data, user_id: user.id })
+    setIsLoading(false)
   }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -147,7 +158,7 @@ export function AddLink() {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save Link</Button>
+            <Button type="submit" disabled={isLoading}>{isLoading ? <Spinner /> : "Save"}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

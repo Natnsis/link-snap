@@ -1,16 +1,36 @@
 "use client"
-import { CollectionSchema } from "@/app/schemas/collection.schema"
+import { createCollection } from "@/app/api/collection/route"
+import { CollectionSchema, CollectionType } from "@/app/schemas/collection.schema"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { createClient } from "@/utils/supabase/client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { BiArrowBack } from "react-icons/bi"
+import { toast } from "sonner"
 
 const page = () => {
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const supabase = createClient()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [user, setUser] = useState<any | null>(null)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setUser(user)
+    };
+    fetchUser();
+  }, []);
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: zodResolver(CollectionSchema),
     defaultValues: {
       title: "",
@@ -21,8 +41,29 @@ const page = () => {
     }
   })
 
-  const onSubmit = (data: any) => {
-    console.log(data)
+  const queryClient = useQueryClient()
+
+  //FIXME: mutation error
+  const mutation = useMutation<
+    any,
+    Error,
+    CollectionType & { user_id: string }
+  >({
+    mutationFn: createCollection,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["link"] });
+      toast.success("collection created succesfully✨")
+      reset();
+    },
+    onError: (error: any) => {
+      toast.error("Error: " + error.message)
+    }
+  })
+
+  const onSubmit = (data: CollectionType) => {
+    setIsLoading(true)
+    mutation.mutate({ ...data, user_id: user.id })
+    setIsLoading(false)
   }
 
   return (

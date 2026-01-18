@@ -1,3 +1,4 @@
+import { CollectionType } from "@/app/schemas/collection.schema"
 import { createClient } from "@/utils/supabase/client"
 
 export const getCollections = async () => {
@@ -24,10 +25,10 @@ export const deleteCollecion = async (id: string) => {
   }
 }
 
-export const createCollection = async (collectionData, id) => {
+export const createCollection = async (collectionData: CollectionType, id: string) => {
   try {
     const supabase = createClient()
-    const { title, description, tag1, tag2, tag3, user_id } = collectionData
+    const { title, description, tag1, tag2, tag3 } = collectionData
     const { error: collectionError } = await supabase.from('collection')
       .insert([
         {
@@ -45,7 +46,7 @@ export const createCollection = async (collectionData, id) => {
   }
 }
 
-export const updateCollection = async (collectionData, id) => {
+export const updateCollection = async (collectionData: CollectionType, id: string) => {
   try {
     const supabase = createClient()
     const { title, description, tag1, tag2, tag3 } = collectionData;
