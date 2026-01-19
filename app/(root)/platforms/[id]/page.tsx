@@ -85,16 +85,30 @@ const Page = () => {
       }
       setUser(user)
     };
-
     fetchUser();
   }, []);
 
   const { data: links, error: linkError } = useQuery({
     queryKey: ['links'],
     queryFn: () => getAllLinks(user.id),
-  })
+  });
 
-  console.log(links)
+  const getPlatform = (url: string) => {
+    try {
+      const hostname = new URL(url).hostname.replace("www.", "").replace(".com", "")
+      if (hostname.includes("youtube") || hostname.includes("youtu.be")) return "youtube"
+      if (hostname.includes("tweeter") || hostname.includes("x")) return "x"
+      if (hostname.includes("instagram")) return "instagram"
+      if (hostname.includes("tiktok")) return "tiktok"
+      if (!hostname.includes("youtube") || !hostname.includes("youtu.be") || !hostname.includes("tweeter") || !hostname.includes("instagram") || !hostname.includes("tiktok")) {
+        return "website"
+      }
+    } catch (e) {
+      return e
+    }
+  }
+
+  console.log(getPlatform("https://www.jlsjdgs.com/lsjfl.jsldfsdjf/ljfsdljf.com"))
 
   return (
     <section className="p-5">
