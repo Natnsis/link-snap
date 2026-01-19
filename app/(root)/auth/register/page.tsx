@@ -6,11 +6,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema, AuthType } from "@/app/schemas/auth.schema";
-import { loginWithGoogle, registerWithPassword } from "@/app/api/auth/route";
+import { googleOAuth, registerWithPassword } from "@/app/api/auth/route";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const page = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(AuthSchema),
@@ -28,6 +30,20 @@ const page = () => {
       router.push("/auth/login")
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  const registerWithGoogle = async () => {
+    try {
+      setIsLoading(true)
+      await googleOAuth()
+      toast("Welcome back! ✨")
+      router.push("/dashboard")
+    } catch (error) {
+      console.error(error)
+      toast("Login failed 😢")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -53,7 +69,7 @@ const page = () => {
               {isSubmitting ? "registering..." : "Register"}
             </Button>
             <p className="text-center">or</p>
-            <Button variant="outline" onClick={() => loginWithGoogle}><FcGoogle size={20} />Continue with google</Button>
+            <Button variant="outline" onClick={registerWithGoogle}><FcGoogle size={20} />Continue with google</Button>
             <p className="text-sm text-center">
               Aleady have an accoutn? login <Link href="/auth/login" className="font-bold hover:underline">here</Link>
             </p>
