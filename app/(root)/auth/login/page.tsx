@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema, AuthType } from "@/app/schemas/auth.schema";
-import { loginWithPassword } from "@/app/api/auth/route";
+import { googleOAuth, loginWithPassword } from "@/app/api/auth/route";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,15 +33,16 @@ const page = () => {
     }
   }
 
-  //FIXME:oauth authentication
   const loginWithGoogle = async () => {
     try {
       setIsLoading(true)
-      await loginWithGoogle()
+      await googleOAuth()
+      toast("Welcome back! ✨")
       router.push("/dashboard")
-      setIsLoading(false)
-      toast("welcome back! ✨");
-    } catch (e) {
+    } catch (error) {
+      console.error(error)
+      toast("Login failed 😢")
+    } finally {
       setIsLoading(false)
     }
   }

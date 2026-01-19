@@ -54,7 +54,7 @@ export const logout = async () => {
   }
 }
 
-export const loginWithGoogle = async () => {
+export const googleOAuth = async () => {
   try {
     const supabase = createClient()
     const { error: oAuthError } = await supabase.auth.signInWithOAuth({
