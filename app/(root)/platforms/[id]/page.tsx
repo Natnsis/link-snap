@@ -13,31 +13,39 @@ import {
   FaTag,
   FaStar,
 } from "react-icons/fa"
-import type { ElementType } from "react"
+import { useEffect, useState, type ElementType } from "react"
 import { linkCards } from "@/lib/constants/links"
+import { useQuery } from "@tanstack/react-query"
+import { getAllLinks } from "@/app/api/link/route"
+import { createClient } from "@/utils/supabase/client"
 
 type PlatformMeta = {
   title: string
   icon: ElementType
   color?: string
+  platform?: string
 }
 
 const PLATFORM_META: Record<string, PlatformMeta> = {
   yt: {
     title: "YouTube",
     icon: FaYoutube,
+    platform: "youtube"
   },
   tk: {
     title: "TikTok",
     icon: FaTiktok,
+    platform: "youtube"
   },
   is: {
     title: "Instagram",
     icon: FaInstagram,
+    platform: "instagram"
   },
   tw: {
     title: "Twitter",
     icon: FaTwitter,
+    platform: "x"
   },
   web: {
     title: "Website",
@@ -59,14 +67,34 @@ const PLATFORM_META: Record<string, PlatformMeta> = {
 
 const Page = () => {
   const { id } = useParams<{ id: string }>()
+  const supabase = createClient()
   const router = useRouter()
-
+  const [user, setUser] = useState<any | null>(null)
   const meta = PLATFORM_META[id] ?? {
     title: "Unknown",
     icon: FaGlobe,
   }
-
   const Icon = meta.icon
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setUser(user)
+    };
+
+    fetchUser();
+  }, []);
+
+  const { data: links, error: linkError } = useQuery({
+    queryKey: ['links'],
+    queryFn: () => getAllLinks(user.id),
+  })
+
+  console.log(links)
 
   return (
     <section className="p-5">

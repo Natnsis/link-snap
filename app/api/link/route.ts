@@ -20,20 +20,20 @@ export const addLink = async ({ user_id, ...data }: LinkType & { user_id: string
   return true
 }
 
-export const getAllLinks = async () => {
+export const getAllLinks = async (id: string) => {
   try {
     const supabase = createClient()
     const { data: linkData, error: linkError } = await supabase.from('link')
       .select('*')
+      .eq('user_id', id)
     if (linkError) throw linkError
     return linkData;
   } catch (error) {
     throw error;
-
   }
 }
 
-export const deleteLinks = async (linkId) => {
+export const deleteLinks = async (linkId: string) => {
   try {
     const supabase = createClient()
     const { error: linkError } = await supabase.from('link')
@@ -45,7 +45,7 @@ export const deleteLinks = async (linkId) => {
   }
 }
 
-export const updateLink = async (updateData, linkId) => {
+export const updateLink = async (updateData, linkId: string) => {
   try {
     const supabase = createClient()
     const { data: linkData, error: updateError } = await supabase.from('link')
