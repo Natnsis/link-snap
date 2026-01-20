@@ -49,10 +49,10 @@ const page = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['collections'] })
-      toast("collection has been added!")
+      toast.success("collection has been added!")
     },
     onError: (error) => {
-      toast("an error has occured!")
+      toast.error("an error has occured!")
       console.log(error)
     }
   })
