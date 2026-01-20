@@ -43,26 +43,22 @@ const page = () => {
 
   const queryClient = useQueryClient()
 
-  //FIXME: mutation error
-  const mutation = useMutation<
-    any,
-    Error,
-    CollectionType & { user_id: string }
-  >({
-    mutationFn: createCollection,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["link"] });
-      toast.success("collection created succesfully✨")
-      reset();
+  //FIXME:mutation bug
+  const mutation = useMutation({
+    mutationFn: async (collectionData) => {
+      await createCollection(collectionData, id);
     },
-    onError: (error: any) => {
-      toast.error("Error: " + error.message)
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['collections'] })
+    },
+    onError: (error) => {
+      throw error
     }
   })
 
   const onSubmit = (data: CollectionType) => {
     setIsLoading(true)
-    mutation.mutate({ ...data, user_id: user.id })
+    console.log(data)
     setIsLoading(false)
   }
 
