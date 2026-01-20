@@ -1,4 +1,5 @@
 "use client"
+
 import { Bookmark, StarIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { FaGlobe, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa"
