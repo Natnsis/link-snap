@@ -11,7 +11,6 @@ const page = () => {
   const params = useParams()
   const id = Number(params.id) as Number
   const collection = collections.find(c => c.id === id)
-
   return (
     <section className="p-5">
       <Button variant="outline" onClick={() => router.push("/collections")}><BiArrowBack /></Button>

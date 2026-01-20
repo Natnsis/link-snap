@@ -66,14 +66,14 @@ export const updateCollection = async (collectionData: CollectionType, id: strin
   }
 }
 
-export const getCollectionsWithId = async (id: string) => {
+export const getCollectionsWithId = async (id: string): Promise<CollectionType[]> => {
   try {
     const supabase = createClient()
     const { data: collection, error: collectionError } = await supabase.from('collection')
       .select('*')
       .eq('user_id', id)
     if (collectionError) throw collectionError
-    return collection
+    return collection || []
   } catch (error) {
     throw error
   }

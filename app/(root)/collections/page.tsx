@@ -7,10 +7,39 @@ import { PlusIcon } from 'lucide-react'
 import { Link } from 'lucide-react'
 import { collections } from "@/lib/constants/collections"
 import { useRouter } from "next/navigation"
+import { useQuery } from "@tanstack/react-query"
+import { getCollectionsWithId } from "@/app/api/collection/route"
+import { useEffect, useState } from "react"
+import { createClient } from "@/utils/supabase/client"
 
 const page = () => {
   const router = useRouter()
+  const supabase = createClient()
+  const [user, setUser] = useState<any | null>(null)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser()
+      if (error) {
+        console.error(error)
+        return
+      }
+      setUser(user)
+    }
+    fetchUser()
+  }, [supabase])
 
+  //TODO:make it fetch collections
+  /*
+  const { data: collectionData, error: collectionError, isLoading } = useQuery({
+    queryKey: ['collection'],
+    queryFn: async () => {
+      getCollectionsWithId(user.id)
+    }
+  })
+  */
 
   return (
     <section className="p-5">
