@@ -58,7 +58,10 @@ export const googleOAuth = async () => {
   try {
     const supabase = createClient()
     const { error: oAuthError } = await supabase.auth.signInWithOAuth({
-      provider: "google"
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
     })
     if (oAuthError) throw oAuthError
   } catch (error) {

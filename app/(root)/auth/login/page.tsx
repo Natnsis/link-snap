@@ -38,7 +38,6 @@ const page = () => {
       setIsLoading(true)
       await googleOAuth()
       toast("Welcome back! ✨")
-      router.push("/dashboard")
     } catch (error) {
       console.error(error)
       toast("Login failed 😢")
