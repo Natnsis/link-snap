@@ -18,8 +18,6 @@ import { logout } from "@/app/api/auth/route"
 const Header = () => {
   const router = useRouter();
   const supabase = createClient()
-
-  //TODO: assign full name with oauth
   const [user, setUser] = useState<any | null>(null)
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,14 +62,13 @@ const Header = () => {
             <DropdownMenuTrigger>
               <Avatar className="rounded-lg">
                 <AvatarImage
-                  src="https://github.com/evilrabbit.png"
-                  alt="@evilrabbit"
+                  src={user?.user_metadata?.avatar_url ?? "https://github.com/evilrabbit.png"} alt="@evilrabbit"
                 />
-                <AvatarFallback>ER</AvatarFallback>
+                <AvatarFallback>PF</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>{user ? user?.full_name : "guest"}</DropdownMenuLabel>
+              <DropdownMenuLabel>{user ? user?.user_metadata?.full_name : "guest"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>{user ? user?.email : "unauthorized"}</DropdownMenuItem>
               <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
@@ -94,16 +91,16 @@ const Header = () => {
             <DropdownMenuTrigger>
               <Avatar className="rounded-lg">
                 <AvatarImage
-                  src="https://github.com/evilrabbit.png"
+                  src={user?.user_metadata?.avatar_url ?? "https://github.com/evilrabbit.png"}
                   alt="@evilrabbit"
                 />
-                <AvatarFallback>ER</AvatarFallback>
+                <AvatarFallback>PF</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Natnael Sisay</DropdownMenuLabel>
+              <DropdownMenuLabel>{user ? user?.user_metadata?.full_name : "guest"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>nsisay49@gmail.com</DropdownMenuItem>
+              <DropdownMenuItem>{user ? user?.email : "unauthorized"}</DropdownMenuItem>
               <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
