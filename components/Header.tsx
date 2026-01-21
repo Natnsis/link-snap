@@ -28,7 +28,6 @@ const Header = () => {
       }
       setUser(user)
     };
-
     fetchUser();
   }, []);
 
