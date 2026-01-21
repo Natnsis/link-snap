@@ -112,7 +112,7 @@ const Page = () => {
 
   const { data: links = [], isLoading } = useQuery({
     queryKey: ["links", user?.id],
-    queryFn: () => getAllLinks(user!.id),
+    queryFn: () => getAllLinks(user?.id),
     enabled: !!user,
   })
 

@@ -7,8 +7,38 @@ import { Download, Edit, Link, PlayIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { linkCards } from "@/lib/constants/links"
 import { useRouter } from "next/navigation"
+import { useQuery } from "@tanstack/react-query"
+import { getAllLinks } from "@/app/api/link/route"
+import { useEffect, useState } from "react"
+import { createClient } from "@/utils/supabase/client"
+
 const page = () => {
   const router = useRouter()
+  const supabase = createClient()
+  const [user, setUser] = useState<any | null>(null)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser()
+      if (error) {
+        console.error(error)
+        return
+      }
+      setUser(user)
+    }
+    fetchUser()
+  }, [supabase])
+
+  const { data: links = [], isLoading } = useQuery({
+    queryKey: ["links", user?.id],
+    queryFn: () => getAllLinks(user?.id),
+    enabled: !!user,
+  });
+
+  console.log(links)
   return (
     <section className="p-5">
       <Header />
@@ -89,19 +119,18 @@ const page = () => {
       </div>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 mt-5 gap-5 px-10">
-        {linkCards ? linkCards.map((l, index) => (
+        {!isLoading ? links.map((l, index) => (
           <div className="h-[90vh]" key={index} onClick={() => router.push(`/overview/${l.id}`)}>
             <div className="bg-gray-200 h-[60vh] rounded-t-lg flex items-center justify-center">
               <PlayIcon size={60} />
             </div>
             <div className="my-2">
               <h1 className="font-bold">{l.title}</h1>
-              <p className="text-xs text-gray-600">{l.description}</p>
+              <p className="text-xs text-gray-600">fetch by decription</p>
               <div className="flex gap-2 my-2">
-                <Badge variant="outline">{l.categories[0]}</Badge>
-                <Badge variant="outline">{l.categories[1]}</Badge>
-                <Badge variant="outline">{l.categories[2]}</Badge>
-                <Badge variant="outline">{l.categories[3]}</Badge>
+                <Badge variant="outline">{l.priority}</Badge>
+                <Badge variant="outline">{l.purpose}</Badge>
+                <Badge variant="outline">youtube</Badge>
               </div>
             </div>
             <div className="flex justify-start gap-2 mt-5">
@@ -110,7 +139,7 @@ const page = () => {
               <Button size="icon"><Download /></Button>
             </div>
           </div>
-        )) : <div>"no links found"</div>}
+        )) : <div>loading...</div>}
       </div>
     </section >
   )
