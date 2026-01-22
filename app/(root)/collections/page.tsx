@@ -3,14 +3,15 @@ import Header from "@/components/Header"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { PlusIcon } from 'lucide-react'
+import { PlusIcon, Trash2 } from 'lucide-react'
 import { Link } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { createClient } from "@/utils/supabase/client"
-import { useQuery } from "@tanstack/react-query"
-import { getCollectionsByUser } from "@/app/api/collection/route"
-import { collections } from "@/lib/constants/collections"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { deleteCollection, getCollectionsByUser } from "@/app/api/collection/route"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { toast } from "sonner"
 
 const page = () => {
   const router = useRouter()
@@ -37,7 +38,20 @@ const page = () => {
     enabled: !!user,
   })
 
-  console.log(collection)
+  //FIXME:deletion bug
+  const mutation = useMutation({
+    mutationKey: ['deleteCollections'],
+    mutationFn: async ({ title, userId }: { title: string; userId: string }) => {
+      await deleteCollection(title, userId)
+    },
+    onSuccess: () => {
+      toast.success("Collection deleted successfully")
+    },
+    onError: () => {
+      toast.error("An error has occurred!")
+    }
+  })
+
   return (
     <section className="p-5">
       <Header />
@@ -52,7 +66,41 @@ const page = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-5">
             {collection && collection.map((c, index) => (
               <div className="h-[30vh] border rounded-lg p-5 hover:shadow-lg" key={index} onClick={() => router.push(`/collections/${c.title}`)}>
-                <h1 className="font-bold text-lg">{c.title}</h1>
+                <div className="flex justify-between">
+                  <h1 className="font-bold text-lg">{c.title}</h1>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button size="sm" variant="destructive"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Trash2 />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently delete your account
+                          from our servers.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel
+                          onClick={(e) => e.stopPropagation()
+                          }>
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            mutation.mutate({ title: c.title, userId: user.id })
+                          }}>
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
                 <p className="text-sm text-gray-600 mb-2">{c.description}</p>
                 <div className="flex gap-3 mt-5">
                   <Badge variant="outline">{c.tag1}</Badge>

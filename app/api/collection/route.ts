@@ -5,7 +5,7 @@ export const getCollections = async () => {
   try {
     const supabase = createClient()
     const { data: collections, error: collectionError } = await supabase.from('collection')
-      .select('*')
+      .select("*")
     if (collectionError) throw collectionError
     return collections
   } catch (error) {
@@ -13,12 +13,14 @@ export const getCollections = async () => {
   }
 }
 
-export const deleteCollecion = async (id: string) => {
+export const deleteCollection = async (title: string, userId: string) => {
   try {
     const supabase = createClient()
     const { error: deletionError } = await supabase.from('collection')
       .delete()
-      .eq('id', id)
+      .eq('id', userId)
+      .eq('title', title)
+
     if (deletionError) throw deletionError
   } catch (error) {
     throw error
