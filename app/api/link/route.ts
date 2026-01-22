@@ -33,12 +33,12 @@ export const getAllLinks = async (id: string) => {
   }
 }
 
-export const deleteLinks = async (linkId: string) => {
+export const deleteLink = async (linkId: string) => {
   try {
     const supabase = createClient()
     const { error: linkError } = await supabase.from('link')
       .delete()
-      .eq('id', 'linkId')
+      .eq('id', linkId)
     if (linkError) throw linkError
   } catch (error) {
     throw error

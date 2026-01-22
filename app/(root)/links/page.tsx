@@ -3,19 +3,20 @@ import Header from "@/components/Header"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectGroup, SelectContent, SelectLabel, SelectItem, SelectValue } from "@/components/ui/select"
-import { Download, Edit, Link, PlayIcon } from "lucide-react"
+import { Download, Edit, Link, PlayIcon, Trash } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { linkCards } from "@/lib/constants/links"
 import { useRouter } from "next/navigation"
-import { useQuery } from "@tanstack/react-query"
-import { getAllLinks } from "@/app/api/link/route"
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query"
+import { deleteLink, getAllLinks } from "@/app/api/link/route"
 import { useEffect, useState } from "react"
 import { createClient } from "@/utils/supabase/client"
+import { AlertDialogTrigger, AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog"
 
 const page = () => {
   const router = useRouter()
   const supabase = createClient()
   const [user, setUser] = useState<any | null>(null)
+  const queryClient = new QueryClient;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,7 +39,16 @@ const page = () => {
     enabled: !!user,
   });
 
-  console.log(links)
+  const mutation = useMutation({
+    mutationKey: ['deleteLink'],
+    mutationFn: async (userId: string) => {
+      await deleteLink(userId)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['links'] })
+    }
+  });
+
   return (
     <section className="p-5">
       <Header />
@@ -125,7 +135,7 @@ const page = () => {
               <PlayIcon size={60} />
             </div>
             <div className="my-2">
-              <h1 className="font-bold">{l.title}</h1>
+              <h1 className="font-bold capitalize">{l.title}</h1>
               <p className="text-xs text-gray-600">fetch by decription</p>
               <div className="flex gap-2 my-2">
                 <Badge variant="outline">{l.priority}</Badge>
@@ -137,6 +147,42 @@ const page = () => {
               <Button size="icon"><Link /></Button>
               <Button size="icon" variant="outline"><Edit /></Button>
               <Button size="icon"><Download /></Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="destructive"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Trash />
+                  </Button>
+                </AlertDialogTrigger>
+
+                <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+
+                  <AlertDialogFooter>
+                    <AlertDialogCancel onClick={(e) => e.stopPropagation()}>
+                      Cancel
+                    </AlertDialogCancel>
+
+                    <AlertDialogAction
+                      disabled={mutation.isPending}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        mutation.mutate(l.id)
+                      }}
+                    >
+                      {mutation.isPending ? "Deleting..." : "Continue"}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         )) : <div>loading...</div>}
