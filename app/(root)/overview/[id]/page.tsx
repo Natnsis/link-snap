@@ -1,12 +1,20 @@
 "use client"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { BiArrowBack } from "react-icons/bi"
 import { Copy, DownloadIcon, StarIcon } from "lucide-react"
 import { FiExternalLink } from "react-icons/fi"
+import { useQuery } from "@tanstack/react-query"
+import { getLinkById } from "@/app/api/link/route"
 
 const page = () => {
   const router = useRouter()
+  //FIXME: fetching single link
+  const { id } = useParams();
+  const { data: link, isLoading } = useQuery({
+    queryKey: ["links", id],
+    queryFn: (id: string) => getLinkById(id),
+  });
   return (
     <section className="p-5">
       <Button variant="outline" onClick={() => router.back()}><BiArrowBack /></Button>

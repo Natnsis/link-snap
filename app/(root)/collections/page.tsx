@@ -52,6 +52,8 @@ const page = () => {
     }
   })
 
+  console.log(collection)
+
   return (
     <section className="p-5">
       <Header />

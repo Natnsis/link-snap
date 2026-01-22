@@ -5,7 +5,7 @@ export const getCollections = async () => {
   try {
     const supabase = createClient()
     const { data: collections, error: collectionError } = await supabase.from('collection')
-      .select("*")
+      .select('id, title, created_at, description, tag1, tag2, tag3, user_id');
     if (collectionError) throw collectionError
     return collections
   } catch (error) {

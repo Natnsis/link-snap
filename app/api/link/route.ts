@@ -61,3 +61,16 @@ export const updateLink = async (updateData, linkId: string) => {
     throw error
   }
 }
+
+export const getLinkById = async (id: string) => {
+  try {
+    const supabase = createClient()
+    const { data: linkData, error: linkError } = await supabase.from('link')
+      .select("*")
+      .eq('id', id)
+    if (linkError) throw linkError
+    return linkData
+  } catch (e) {
+    throw e
+  }
+}
