@@ -3,7 +3,6 @@ import Counts from "@/components/Counts"
 import Options from "@/components/Options"
 import Demo from "@/components/Demo"
 import Demo2 from "@/components/Demo2"
-import CollectionOverview from "@/components/CollectionOverview"
 import Footer from "@/components/Footer"
 
 const page = () => {
@@ -14,7 +13,6 @@ const page = () => {
       <Options />
       <Demo />
       <Demo2 />
-      <CollectionOverview />
       <Footer />
     </section>
   )

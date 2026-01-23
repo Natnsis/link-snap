@@ -50,10 +50,6 @@ const Header = () => {
             Dashboard
           </Button>
 
-          <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/collections")}>
-            Collections
-          </Button>
-
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/links")}>
             All Links
           </Button>
@@ -81,7 +77,6 @@ const Header = () => {
             <DropdownMenuTrigger><MenuIcon /></DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/collections")}>Collections</DropdownMenuItem>
               <DropdownMenuItem onClick={() => router.push("/links")}>All Links</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
