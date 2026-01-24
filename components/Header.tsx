@@ -1,6 +1,7 @@
 "use client"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/mode-toggle"
 import { useRouter } from "next/navigation"
 import {
   DropdownMenu,
@@ -40,7 +41,7 @@ const Header = () => {
     <header className="flex justify-center">
       <div className="flex justify-between w-[80%]">
         <div className="flex gap-1">
-          <img src="/inner/logo.png" className="w-10" />
+          <img src="/inner/logo.png" className="w-10 rounded-full" />
           <h1 className="text-xl font-extrabold">Commit</h1>
         </div>
 
@@ -53,6 +54,7 @@ const Header = () => {
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/links")}>
             All Links
           </Button>
+          <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar className="rounded-lg">
