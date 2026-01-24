@@ -7,7 +7,7 @@ const LandingHero = () => {
         <img src="/inner/logo.png" alt="Image" className="rounded-md object-cover h-30" />
       </div>
       <div className="flex flex-col gap-2 mb-10">
-        <h1 className="text-6xl font-extrabold text-center">LinkSnap</h1>
+        <h1 className="text-6xl font-extrabold text-center">Commit</h1>
         <p className="text-5xl text-gray-400 font-bold text-center">Your content, organized and beautifully previewed.</p>
       </div>
       <div className="flex justify-center gap-5">

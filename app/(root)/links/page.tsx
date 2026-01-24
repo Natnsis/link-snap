@@ -3,7 +3,7 @@ import Header from "@/components/Header"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectGroup, SelectContent, SelectLabel, SelectItem, SelectValue } from "@/components/ui/select"
-import { Download, Edit, Link, PlayIcon, Trash } from "lucide-react"
+import { Download, PencilIcon, Link, PlayIcon, Trash } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query"
@@ -145,7 +145,7 @@ const page = () => {
             </div>
             <div className="flex justify-start gap-2 mt-5">
               <Button size="icon"><Link /></Button>
-              <Button size="icon" variant="outline"><Edit /></Button>
+              <Button size="icon" variant="secondary"><PencilIcon /></Button>
               <Button size="icon"><Download /></Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>

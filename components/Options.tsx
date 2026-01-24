@@ -1,6 +1,6 @@
 "use client"
 
-import { Bookmark, StarIcon } from "lucide-react"
+import { ChartBarIcon, StarIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { FaGlobe, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
@@ -34,14 +34,13 @@ const Options = () => {
 
         <div className="flex flex-col gap-1 items-center hover:shadow-lg py-5" onClick={() => router.push("/platforms/web")}>
           <FaGlobe size={40} color="gray" />
-          <p className="font-extrabold">Websites</p>
+          <p className="font-extrabold">Last Visits</p>
         </div>
 
         <div className="flex flex-col gap-1 items-center hover:shadow-lg py-5" onClick={() => router.push("/collections")}>
-          <Bookmark size={40} color="gray" />
-          <p className="font-extrabold">Collections</p>
+          <ChartBarIcon size={40} color="gray" />
+          <p className="font-extrabold">Status</p>
         </div>
-
 
         <div className="flex flex-col gap-1 items-center hover:shadow-lg py-5" onClick={() => router.push("/platforms/fav")}>
           <StarIcon size={40} color="gray" />

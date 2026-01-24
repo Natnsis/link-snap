@@ -41,17 +41,13 @@ const Header = () => {
       <div className="flex justify-between w-[80%]">
         <div className="flex gap-1">
           <img src="/inner/logo.png" className="w-10" />
-          <h1 className="text-xl font-extrabold">LinkSnap</h1>
+          <h1 className="text-xl font-extrabold">Commit</h1>
         </div>
 
         {/*desktop navigation*/}
         <nav className="gap-5 sm:flex sm:items-center hidden">
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/dashboard")}>
             Dashboard
-          </Button>
-
-          <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/collections")}>
-            Collections
           </Button>
 
           <Button className="rounded-full bg-gray-200" size="sm" variant="outline" onClick={() => router.push("/links")}>
@@ -81,7 +77,6 @@ const Header = () => {
             <DropdownMenuTrigger><MenuIcon /></DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/collections")}>Collections</DropdownMenuItem>
               <DropdownMenuItem onClick={() => router.push("/links")}>All Links</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
