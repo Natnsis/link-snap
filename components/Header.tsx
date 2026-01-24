@@ -41,7 +41,7 @@ const Header = () => {
       <div className="flex justify-between w-[80%]">
         <div className="flex gap-1">
           <img src="/inner/logo.png" className="w-10" />
-          <h1 className="text-xl font-extrabold">LinkSnap</h1>
+          <h1 className="text-xl font-extrabold">Commit</h1>
         </div>
 
         {/*desktop navigation*/}

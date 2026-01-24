@@ -52,7 +52,7 @@ const page = () => {
         <div className="flex justify-center">
           <img src="/inner/logo.png" className="w-30" />
         </div>
-        <h1 className="text-4xl font-extrabold text-center mb-5">Login to LinkSnap</h1>
+        <h1 className="text-4xl font-extrabold text-center mb-5">Login to Commit</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
           <div className="w-60 flex flex-col gap-3">
             <Input className="bg-gray-100" placeholder="example@gmail.com" {...register("email")} />
